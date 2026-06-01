@@ -58,6 +58,31 @@ export default function CustomerDashboard() {
   const [isRadarCollapsed, setIsRadarCollapsed] = useState(false);
   const [emailInput, setEmailInput] = useState(currentUser?.email || '');
   const [sendingEmail, setSendingEmail] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(300);
+
+  // Dynamic ticking countdown timer for OTP Expiration
+  useEffect(() => {
+    if (!pendingOrder) return;
+    
+    const calculateTimeLeft = () => {
+      const diff = Math.max(0, Math.floor((pendingOrder.expiresAt - Date.now()) / 1000));
+      setTimeLeft(diff);
+      if (diff === 0) {
+        cancelOrder();
+        showToast('⚠️ Secure OTP transaction session has expired!', 'error');
+      }
+    };
+
+    calculateTimeLeft();
+    const interval = setInterval(calculateTimeLeft, 1000);
+    return () => clearInterval(interval);
+  }, [pendingOrder, cancelOrder, showToast]);
+
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
 
   useEffect(() => {
     if (!currentUser || currentUser.role !== 'customer') {
@@ -560,7 +585,7 @@ export default function CustomerDashboard() {
                       <div key={i} style={{ width: '48px', height: '56px', backgroundColor: '#111827', border: `2px solid ${C.green}`, borderRadius: '12px', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '28px', fontWeight: '800', color: C.green }}>{char}</div>
                     ))}
                   </div>
-                  <div style={{ fontSize: '13px', color: C.gray }}>Expires in <span style={{ color: C.gold, fontWeight: '700' }}>5:00</span></div>
+                  <div style={{ fontSize: '13px', color: C.gray }}>Expires in <span style={{ color: C.gold, fontWeight: '700' }}>{formatTime(timeLeft)}</span></div>
                 </div>
 
                 {/* Right: Real QR & Email */}

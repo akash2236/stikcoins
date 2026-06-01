@@ -106,7 +106,7 @@ export default function ShopkeeperDashboard() {
       backgroundColor: C.bg,
       color: C.white,
       fontFamily: "'DM Sans', sans-serif",
-      padding: '24px 16px 48px 16px',
+      padding: '24px 16px 80px 16px',
       boxSizing: 'border-box',
       display: 'flex',
       flexDirection: 'column',
@@ -127,70 +127,16 @@ export default function ShopkeeperDashboard() {
         
         /* Dual column desktop pos layout */
         .merchant-grid { display: flex; flex-direction: column; gap: 20px; width: 100%; }
+        
+        .mobile-nav { display: flex; position: fixed; bottom: 0; left: 0; right: 0; background: rgba(18, 18, 23, 0.95); border-top: 1px solid ${C.border}; padding: 12px 24px; justify-content: space-around; z-index: 100; backdrop-filter: blur(10px); padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+        .desktop-actions { display: none; }
+        
         @media(min-width: 768px) {
           .merchant-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; }
+          .mobile-nav { display: none; }
+          .desktop-actions { display: flex; }
         }
       `}</style>
-
-      {/* ========================================== */}
-      {/* DEV & SYSTEM TOOLBAR BAR */}
-      {/* ========================================== */}
-      <div style={{
-        width: '100%',
-        maxWidth: '1000px',
-        backgroundColor: '#0F0F13CC',
-        borderRadius: '16px',
-        padding: '12px 20px',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        border: `1px solid ${C.border}`,
-        marginBottom: '20px',
-        backdropFilter: 'blur(12px)',
-        boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
-        flexWrap: 'wrap',
-        gap: '10px'
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: C.gold, boxShadow: `0 0 10px ${C.gold}` }}></div>
-          <span style={{ fontSize: '11px', fontWeight: 'bold', letterSpacing: '1px', color: C.gold }}>MERCHANT POS MODE</span>
-        </div>
-
-        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-          <button
-            onClick={devReset}
-            className="btn-action"
-            style={{
-              backgroundColor: 'rgba(239, 68, 68, 0.05)',
-              border: `1px solid ${C.error}33`,
-              borderRadius: '8px',
-              padding: '6px 12px',
-              fontSize: '10px',
-              color: C.error,
-              fontWeight: 'bold',
-            }}
-          >
-            🔄 Reset Server
-          </button>
-          <button
-            onClick={logout}
-            className="btn-action"
-            style={{
-              backgroundColor: C.surfaceLight,
-              color: C.white,
-              border: 'none',
-              borderRadius: '8px',
-              padding: '6px 12px',
-              fontSize: '10px',
-              fontWeight: 'bold',
-            }}
-          >
-            🚪 Logout
-          </button>
-        </div>
-      </div>
-
-
 
       {/* ========================================== */}
       {/* DYNAMIC RESPONSIVE FULL APPLICATION VIEW */}
@@ -225,13 +171,33 @@ export default function ShopkeeperDashboard() {
             <span style={{ fontSize: '11px', color: C.gray }}>Cashier Checkout POS Gateway</span>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ textAlign: 'right' }}>
-              <div style={{ fontSize: '13px', color: C.white, fontWeight: 'bold' }}>{currentUser.name}</div>
-              <div style={{ fontSize: '9px', color: C.gold }}>Cashier Desk</div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+            <div className="desktop-actions" style={{ gap: '8px', borderRight: `1px solid ${C.border}`, paddingRight: '14px' }}>
+              <button 
+                onClick={devReset} 
+                title="Reset Server"
+                className="btn-action" 
+                style={{ width: '36px', height: '36px', borderRadius: '10px', backgroundColor: 'rgba(239, 68, 68, 0.1)', border: `1px solid ${C.error}40`, display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '16px', color: C.error }}
+              >
+                🔄
+              </button>
+              <button 
+                onClick={logout} 
+                title="Logout"
+                className="btn-action" 
+                style={{ width: '36px', height: '36px', borderRadius: '10px', backgroundColor: C.surfaceLight, border: `1px solid ${C.border}`, display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '16px', color: C.white }}
+              >
+                🚪
+              </button>
             </div>
-            <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: C.surfaceLight, border: `2px solid ${C.gold}`, display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '18px', boxShadow: `0 0 10px ${C.gold}30` }}>
-              {currentUser.avatar}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <div style={{ textAlign: 'right' }}>
+                <div style={{ fontSize: '13px', color: C.white, fontWeight: 'bold' }}>{currentUser.name}</div>
+                <div style={{ fontSize: '9px', color: C.gold }}>Cashier Desk</div>
+              </div>
+              <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: C.surfaceLight, border: `2px solid ${C.gold}`, display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '18px', boxShadow: `0 0 10px ${C.gold}30` }}>
+                {currentUser.avatar}
+              </div>
             </div>
           </div>
         </div>
@@ -515,6 +481,29 @@ export default function ShopkeeperDashboard() {
           </span>
         </div>
 
+      </div>
+
+      {/* MOBILE BOTTOM NAV */}
+      <div className="mobile-nav">
+        <button
+          onClick={devReset}
+          className="btn-action"
+          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', background: 'none', border: 'none', color: C.error }}
+        >
+          <span style={{ fontSize: '20px' }}>🔄</span>
+          <span style={{ fontSize: '10px', fontWeight: 'bold' }}>Reset Server</span>
+        </button>
+        
+        <div style={{ width: '1px', backgroundColor: C.border, height: '30px', alignSelf: 'center' }}></div>
+
+        <button
+          onClick={logout}
+          className="btn-action"
+          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', background: 'none', border: 'none', color: C.gray }}
+        >
+          <span style={{ fontSize: '20px' }}>🚪</span>
+          <span style={{ fontSize: '10px', fontWeight: 'bold' }}>Sign Out</span>
+        </button>
       </div>
     </div>
   );

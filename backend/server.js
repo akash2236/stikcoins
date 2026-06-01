@@ -301,6 +301,12 @@ app.post('/api/orders/approve', async (req, res) => {
     return res.status(400).json({ error: 'No active pending checkout session detected.' });
   }
 
+  // Verify that the order transaction session hasn't expired yet
+  if (Date.now() > pendingOrder.expiresAt) {
+    pendingOrder = null; // Clear the expired state on the server
+    return res.status(400).json({ error: 'Transaction session expired! Please generate a new OTP.' });
+  }
+
   const cleanInput = (otp || '').replace(/[^0-9]/g, '');
   const cleanExpected = pendingOrder.otp.replace(/[^0-9]/g, '');
 

@@ -58,6 +58,17 @@ body {
   border-radius: 16px;
 }
 
+/* Inset Element (Concave/Pressed) */
+.sk-inset {
+  background: var(--sk-bg);
+  box-shadow: inset 4px 4px 8px var(--sk-dark), 
+              inset -4px -4px 8px var(--sk-light);
+  border: 1px solid transparent;
+  border-radius: 12px;
+  color: #94A3B8;
+  font-family: inherit;
+}
+
 /* Tactile Button */
 .sk-button {
   background: linear-gradient(145deg, #262831, #1e2026);
