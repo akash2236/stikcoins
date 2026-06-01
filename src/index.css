@@ -1,0 +1,122 @@
+/* CSS Reset and Variables */
+:root {
+  --primary-green: #2D6A4F;
+  --mid-green: #40916C;
+  --light-green: #74C69D;
+  --green-bg: #D8F3DC;
+  --pale-green: #F0FFF4;
+  --gold: #F4A30A;
+  --gold-light: #FFD166;
+  --gray: #6B7280;
+  --text: #1A1A2E;
+  --screen-bg: #E8F5E9;
+  
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text);
+  background-color: #121214;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #22242B; /* Matte dark skeuomorphic background */
+  overflow-x: hidden;
+}
+
+/* SKEUOMORPHISM UI DESIGN SYSTEM */
+:root {
+  --sk-bg: #22242B;
+  --sk-light: rgba(255, 255, 255, 0.05);
+  --sk-light-strong: rgba(255, 255, 255, 0.08);
+  --sk-dark: rgba(0, 0, 0, 0.6);
+  --sk-accent: #10B981;
+}
+
+/* Raised Panel (Convex metallic/matte) */
+.sk-panel {
+  background: linear-gradient(145deg, #262831, #1e2026);
+  box-shadow:  10px 10px 20px var(--sk-dark), 
+              -10px -10px 20px var(--sk-light);
+  border-top: 1px solid var(--sk-light-strong);
+  border-left: 1px solid var(--sk-light-strong);
+  border-bottom: 1px solid rgba(0,0,0,0.8);
+  border-right: 1px solid rgba(0,0,0,0.8);
+  border-radius: 24px;
+}
+
+/* Inset Screen (Concave glass/display) */
+.sk-screen {
+  background: #1c1d22;
+  box-shadow: inset 8px 8px 16px var(--sk-dark), 
+              inset -8px -8px 16px var(--sk-light);
+  border-bottom: 1px solid var(--sk-light);
+  border-right: 1px solid var(--sk-light);
+  border-radius: 16px;
+}
+
+/* Tactile Button */
+.sk-button {
+  background: linear-gradient(145deg, #262831, #1e2026);
+  box-shadow:  6px 6px 12px var(--sk-dark), 
+              -6px -6px 12px var(--sk-light);
+  border-top: 1px solid var(--sk-light-strong);
+  border-left: 1px solid var(--sk-light-strong);
+  border-bottom: 1px solid rgba(0,0,0,0.6);
+  border-right: 1px solid rgba(0,0,0,0.6);
+  border-radius: 12px;
+  color: #94A3B8;
+  font-weight: 700;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  text-shadow: 1px 1px 2px #000;
+}
+
+.sk-button:active {
+  background: var(--sk-bg);
+  box-shadow: inset 4px 4px 8px var(--sk-dark), 
+              inset -4px -4px 8px var(--sk-light);
+  border: 1px solid transparent;
+  color: var(--sk-accent);
+  transform: translateY(2px);
+}
+
+/* Red / Green LED / Glowing Text */
+.sk-led-text {
+  color: var(--sk-accent);
+  text-shadow: 0 0 5px rgba(16, 185, 129, 0.5), 0 0 10px rgba(16, 185, 129, 0.3);
+}
+
+/* Leather/Textured Header */
+.sk-texture {
+  background-color: #1a1c22;
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 20.5V18H0v-2h20v-2H0v-2h20v-2H0V8h20V6H0V4h20V2H0V0h22v20h2V0h2v20h2V0h2v20h2V0h2v20h2V0h2v20h2v2H20v-1.5zM0 20h2v20H0V20zm4 0h2v20H4V20zm4 0h2v20H8V20zm4 0h2v20h-2V20zm4 0h2v20h-2V20zm4 4h20v2H20v-2zm0 4h20v2H20v-2zm0 4h20v2H20v-2zm0 4h20v2H20v-2z' fill='%23000000' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+/* App Wrapper for Centering in Desktop, Fullscreen in Mobile */
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* Custom Scrollbar for the Mobile Mockup Screen */
+.custom-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
+}
